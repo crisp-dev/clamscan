@@ -528,7 +528,7 @@ class NodeClam {
     // ****************************************************************************
     _is_readable_stream(obj) {
         if (!obj || typeof obj !== 'object') return false;
-        return typeof obj.pipe === 'function' && typeof obj._readableState === 'object';
+        return typeof obj.pipe === 'function';
     }
 
     // ****************************************************************************
@@ -1686,7 +1686,7 @@ class NodeClam {
                     // ClamAV is sending stuff to us
                     .on('data', chunk => {
                         if (this.settings.debug_mode) console.log(`${this.debug_label}: Received output from ClamAV Socket.`);
-                        if (!stream.isPaused()) stream.pause();
+                        if (stream.isPaused && !stream.isPaused()) stream.pause();
                         chunks.push(chunk);
                     })
 
